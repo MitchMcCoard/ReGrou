@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Curbside Composting made easy" />
+        <meta name="author" content="Mitchell McCoard" />
+        <title>ReGrou</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../images/logo.png" /><!--NEED TO UPDATE-->
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="/">ReGrou</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/users/stats">Stats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#features">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mailto:we.regrou@gmail.com?subject=Quick%20Question&body=Hi,%0D%0A%0D%0AI%20have%20a%20quick%20question%20for%20you.%0D%0A">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                            <% if (req.isAuthenticated()){
+                                %>
+                                <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                        <li><a class="dropdown-item" href="/laccount">Manage Account</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Skip%20Me%20Please&body=Hi,%0D%0A%0D%0AI%20don't%20need%20a%20pickup%20this%20week,%20thanks.%0D%0A">Skip a pickup</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Missed%20Pickup&body=Hi,%0D%0A%0D%0AMy%20bucket%20didn't%20get%20serviced%20this%20week.%0D%0A">Report a missed pickup</a></li>
+                                    </ul>
+                                </li>
+                                <%;
+                            }else {
+                                %><li class="nav-item"><a class="nav-link" href="/users/login">Login</a></li><%;
+                            } %>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Header-->
+            <header class="py-5 min-vh-100 bg-green-regrou">
+                <div class="container px-5">
+                    <div class="row gx-5  justify-content-center">
+                        <div class="col-lg-6 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <!--<img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />-->
+                                <div class="card-body p-5 text-center">
+
+                                    <h5 class="card-title mb-3"><%=user.charAt(0).toUpperCase() + user.slice(1)%></h5>
+                                    <h5 class="card-title mb-3">Customer Pick Ups</h5>
+
+                                    <ul>
+                                        <% if(messages.success_msg) { %>
+                                            <li><%=messages.success_msg%></li>
+                                        <% } %>
+                                    </ul>
+                                    <ul>
+                                        <% if(typeof errors != 'undefined') 
+                                            { errors.forEach(errors=>{ %>
+                                                <li><%= errors.message%></li>
+                                                <% })      
+                                            } %>
+                                    </ul>
+                                    
+                                        <form action="/emp/pickup" method="POST">
+                                            <div>
+                                                <select name="cust" id="listcust">
+                                                    <%
+                                                        for (iCount = 0; iCount < customers.length; iCount++)
+                                                        { %>
+                                                            <option value="<%=customers[iCount].iCust_id%>"><%=customers[iCount].sFirstName + " " + customers[iCount].sAddress.slice(0,15)%></option>
+                                                    <%  } %>         
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <input class="p-3 m-3" type="number" name="weight" id="weight" placeholder="Weight (kg)" min="0"  step=".25" required>
+                                            </div>
+                                            <div>
+                                                <span class="card-text mb-0">Did they remember thier bucket?</span><br>
+                                                <input class="p-3 m-3" type="radio" name="pickup" id="pickupT" value= "true" checked>
+                                                <label for="pickupT">Yes</label><br>
+                                                <input class="p-3 m-3" type="radio" name="pickup" id="pickupF" value= "false">
+                                                <label for="pickupF">No</label>
+                                            </div>
+                                            <div>
+                                                <input type="text" name="emp" id="emp" value="<%=user.charAt(0).toUpperCase() + user.slice(1)%>" hidden>    
+                                            </div>
+                                            <div>
+                                                <input class="btn bg-primary btn-outline-light" value="Submit" type="submit">
+                                            </div>
+                                            <p id="output"></p>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </main>
+        <!-- Footer-->
+        <footer class="bg-dark py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; ReGrou.com 2022</div></div>
+                    <div class="col-auto">
+                        <a class="link-light small" href="#!">Privacy</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Terms</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script>
+        function getTheDate(){
+            const date = new Date();
+            const today = date.getDate();
+            document.getElementById("date").value = today;
+        }
+        function DisplayData(){
+            if(document.getElementById("pickup").checked){
+                document.getElementById("pickup").value = true
+            }
+            document.getElementById("output").innerHTML = document.getElementById("weight").value + " " + document.getElementById("pickup").value + " " + document.getElementById("date").value + " " + document.getElementById("emp").value + " " + document.getElementById("listcust").value
+        }
+        function mail(customers){
+            /*let id = 0;
+            document.getElementById("output").innerHTML = document.getElementById("listcust").value;
+            document.getElementById("listcust").value = id;
+            for(iCount = 0; iCount < 42; iCount ++){
+                if(id == customers[iCount].iCust_id.toString()){
+                    email = customers[iCount].sEmail;
+                }
+            }
+            document.getElementById("output").innerHTML = email;*/
+            
+        }
+        </script>
+    </body>
+</html>

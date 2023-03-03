@@ -1,0 +1,207 @@
+<!--This is the home page-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Curbside Composting made easy" />
+        <meta name="author" content="Mitchell McCoard" />
+        <title>ReGrou</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="images/logo.png" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="#">ReGrou</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/users/stats">Stats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#features">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mailto:we.regrou@gmail.com?subject=Quick%20Question&body=Hi,%0D%0A%0D%0AI%20have%20a%20quick%20question%20for%20you.%0D%0A">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                            <% if (req.isAuthenticated()){
+                                %>
+                                <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                        <li><a class="dropdown-item" href="/laccount">Manage Account</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Skip%20Me%20Please&body=Hi,%0D%0A%0D%0AI%20don't%20need%20a%20pickup%20this%20week,%20thanks.%0D%0A">Skip a pickup</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Missed%20Pickup&body=Hi,%0D%0A%0D%0AMy%20bucket%20didn't%20get%20serviced%20this%20week.%0D%0A">Report a missed pickup</a></li>
+                                    </ul>
+                                </li>
+                                <%;
+                            }else {
+                                %><li class="nav-item"><a class="nav-link" href="/users/login">Login</a></li><%;
+                            } %>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Header-->
+            <header class="py-5 min-vh-100 bg-green-regrou">
+                <div class="container px-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="/images/greenrecycle.jpeg" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Customers</div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="/users/login"><h5 class="card-title mb-3">Already a customer?</h5></a>
+                                    <p><a href="/users/login"><button class="btn bg-primary btn-outline-light" id="button-newsletter" type="button">Sign in</button></a></p>
+                                    <p class="card-text mb-0">Sign in to check your stats, request a week off, or report a missed pickup.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="/images/seed.jpg" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Customers</div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="/users/signup"><h5 class="card-title mb-3">First Time?</h5></a>
+                                    <p><a href="/users/signup"><button class="btn bg-primary btn-outline-light" id="button-newsletter" type="button">Sign up</button></a></p>
+                                    <p class="card-text mb-0">Find out what kind of difference <i>your</i> food scraps can make! Keep scrolling to find out more.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="/images/dirt.jpeg" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Employees</div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="/users/login"><h5 class="card-title mb-3">Here to work?</h5></a>
+                                    <p><a href="/users/login"><button class="btn bg-primary btn-outline-light" id="button-newsletter" type="button">Sign in</button></a></p>
+                                    <p class="card-text mb-0">Sign in to manage your account.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Features section-->
+            <section class="py-5" id="features">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">A better way to Compost.</h2></div>
+                        <div class="col-lg-8">
+                            <div class="row gx-5 row-cols-1 row-cols-md-2">
+                                <div class="col mb-5 h-100">
+                                    <h2 class="h5">Make a Difference</h2>
+                                    <p class="mb-0">We track how much food waste you divert through us and give you an idea of the impact it is making! We even have a leaderboard of top preformers every week.</p>
+                                </div>
+                                <div class="col mb-5 h-100">
+                                    <h2 class="h5">Why is Food Waste Important</h2>
+                                    <p class="mb-0">Food waste doesn't really decompose in landfills, but when it does it emits methane, a greenhouse gas appr. 100 times stronger than CO2!
+                                         Feel free to reach out to us with any questions about sustainability.</p>
+                                </div><br>
+                                <div class="col mb-5 h-100">
+                                    <h2 class="h5">How can I start?</h2>
+                                    <p class="mb-0">Starting is as easy as an online form, we will take care of the rest. Unfortunately, we are still very small and only able to serve the Mapleton-Provo area.</p>
+                                </div>
+                                <div class="col mb-5 h-100">
+                                    <h2 class="h5">Weekly Pickup</h2>
+                                    <p class="mb-0">No more dealing with pests or smells of composting. We handle all that for you!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Testimonial section-->
+            <div class="py-5 bg-light">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="text-center">
+                                <p><h2 class="fw-bolder">What do customers say?</h2></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fst-italic">"omg this is literally perfect!"</div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-primary mx-1">-</span>
+                                    <div class="fw-bold">
+                                        Breann
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fst-italic">"I love the work you are doing!!... this institution sounds amazing!"</div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-primary mx-1">-</span>
+                                    <div class="fw-bold">
+                                        Mirka
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fst-italic">"This is so fun!"</div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-primary mx-1">-</span>
+                                    <div class="fw-bold">
+                                        DeAnn
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <!-- Call to action-->
+                    <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 ">
+                        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                            <div class="mb-4 mb-xl-0">
+                                <div class="fs-3 fw-bold text-white">Making a difference made easy.</div>
+                                <div class="text-white-50">Reach out to we.regrou@gmail.com with any questions you might have.</div>
+                            </div>
+                            <div class="ms-xl-4">
+                                <div class="input-group mb-2">
+                                    <a href="/users/signup"><button class="btn bg-primary btn-outline-light" id="button-newsletter" type="button">Sign Up</button></a>
+                                </div>
+                                <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </main>
+        <!-- Footer-->
+        <footer class="bg-dark py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; ReGrou.com 2022</div></div>
+                    <div class="col-auto">
+                        <a class="link-light small" href="#!">Privacy</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Terms</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

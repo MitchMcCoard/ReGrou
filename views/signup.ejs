@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Curbside Composting made easy" />
+        <meta name="author" content="Mitchell McCoard" />
+        <title>ReGrou</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="images/logo.png" /><!--NEED TO UPDATE-->
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="/">ReGrou</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/users/stats">Stats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#features">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mailto:we.regrou@gmail.com?subject=Quick%20Question&body=Hi,%0D%0A%0D%0AI%20have%20a%20quick%20question%20for%20you.%0D%0A">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                            <% if (req.isAuthenticated()){
+                                %>
+                                <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                        <li><a class="dropdown-item" href="/laccount">Manage Account</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Skip%20Me%20Please&body=Hi,%0D%0A%0D%0AI%20don't%20need%20a%20pickup%20this%20week,%20thanks.%0D%0A">Skip a pickup</a></li>
+                                        <li><a class="dropdown-item" href="mailto:we.regrou@gmail.com?subject=Missed%20Pickup&body=Hi,%0D%0A%0D%0AMy%20bucket%20didn't%20get%20serviced%20this%20week.%0D%0A">Report a missed pickup</a></li>
+                                    </ul>
+                                </li>
+                                <%;
+                            }else {
+                                %><li class="nav-item"><a class="nav-link" href="/users/login">Login</a></li><%;
+                            } %>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <section class="py-5 bg-green-regrou">
+                <div class="container px-5">
+                    <!-- Contact form-->
+                    <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Sign Up</h1>
+                            <p class="lead fw-normal text-muted mb-0">
+                                <ul>
+                                    <% if(typeof errors != 'undefined') 
+                                    { errors.forEach(errors=>{ %>
+                                        <p><%= errors.message%></p>
+                                        <% })      
+                                    } %>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                <form action="/users/signup" method="POST">
+                                    <!-- First Name Input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" required>
+                                        <label for="name">First Name</label>
+                                    </div>
+                                    <!-- Last Name Input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" required>
+                                        <label for="name">Last Name</label>
+                                    </div>
+                                    <!-- Email input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="email" name="email" id="email" placeholder="Enter your email" data-sb-validations="required" required>
+                                        <label for="email">Email address</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                    </div>
+                                    <!-- Password input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="password" name="password" id="password" placeholder="Password" data-sb-validations="required" required>
+                                        <label for="password">Password</label>
+                                        <div class="invalid-feedback" data-sb-feedback="password:required">Please enter your password</div>
+                                    </div>
+                                    <!-- Confirm Password input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" data-sb-validations="required" required>
+                                        <label for="password2">Confirm Passowrd</label>
+                                        <div class="invalid-feedback" data-sb-feedback="password:required">Please enter your password</div>
+                                    </div>
+                                    <!-- phone input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" required />
+                                        <label for="phone">Phone number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                    </div>
+                                    <!--Address input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="text" name="address" id="address" placeholder="address" data-sb-validations="required" required>
+                                        <label for="address">Street Address</label>
+                                        <div class="invalid-feedback" data-sb-feedback="address:required">Please enter your password</div>
+                                    </div>
+                                    <!--Venmo input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" type="text" name="venmo" id="venmo" placeholder="venmo" data-sb-validations="required" required>
+                                        <label for="venmo">Venmo</label>
+                                        <div class="invalid-feedback" data-sb-feedback="venmo:required">Please enter your Venmo handle</div>
+                                    </div>
+                                    <!--Reminder input-->
+                                    <p class="lead fw-normal text-muted mb-0">Would you like a text reminder?</p>
+                                    <div class="text-center mb-3">
+                                        <input class="" type="radio" name="reminder" id="reminderT"  value="true"  checked>
+                                        <label for="reminderT">Yes</label>&nbsp;&nbsp;&nbsp;
+                                        <input class="" type="radio" name="reminder" value="false" id="reminderF">
+                                        <label for="reminderF">No</label>
+                                    </div>
+                                    <!--Student input-->
+                                    <p class="lead fw-normal text-muted mb-0">Are you a student?</p>
+                                    <div class="text-center mb-3">
+                                        <input class="" type="radio" name="student" id="studentT" value="true">
+                                        <label for="StudentT">Yes</label>&nbsp;&nbsp;&nbsp;
+                                        <input class="" type="radio" name="student" id="studentF" value="false" checked>
+                                        <label for="studentF">No</label>
+                                    </div>
+                                    <!--Source input-->
+                                    <p class="lead fw-normal text-muted mb-0">How did you hear about us?</p>
+                                    <div class="form-floating text-center mb-3">
+                                        <select name="source" id="source">
+                                               <option value="WOM">Word of Mouth</option>
+                                               <option value="Flyer">Flyer</option>
+                                               <option value="SM">Social Media</option>
+                                               <option value="O">Other</option> 
+                                        </select>
+                                    </div>
+                                    <!-- Submit Button-->
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Sign Up</button></div>
+                                </form>
+                                <div class="m-2 p-2 mt-5">
+                                    <a href="/users/login" class="text-center"><div class="h5">Already have an account?</div></a>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contact cards-->
+                    <div class="row gx-5 row-cols-2 row-cols-lg-4 py-5 justify-content-center">
+                        
+                        <!--<div class="col">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 text-center"><i class="bi bi-envelope"></i></div>
+                            <div class="h5 mb-2">Email us</div>
+                            <p class="text-muted mb-0">If you have any questions we would love to chat at we.regrou@gmail.com</p>
+                        </div>
+                        <div class="col">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-people"></i></div>
+                            <div class="h5">Ask the community</div>
+                            <p class="text-muted mb-0">Explore our community forums and communicate with other users.</p>
+                        </div>
+                        <div class="col">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-question-circle"></i></div>
+                            <div class="h5">Support center</div>
+                            <p class="text-muted mb-0">Browse FAQ's and support articles to find solutions.</p>
+                        </div>
+                        <div class="col">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-telephone"></i></div>
+                            <div class="h5">Call us</div>
+                            <p class="text-muted mb-0">Call us during normal business hours at (555) 892-9403.</p>
+                        </div>-->
+                    </div>
+                </div>
+            </section>
+        </main>
+            <!-- Footer-->
+            <footer class="bg-dark py-4 mt-auto">
+                <div class="container px-5">
+                    <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                        <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; ReGrou.com 2022</div></div>
+                        <div class="col-auto">
+                            <a class="link-light small" href="#!">Privacy</a>
+                            <span class="text-white mx-1">&middot;</span>
+                            <a class="link-light small" href="#!">Terms</a>
+                            <span class="text-white mx-1">&middot;</span>
+                            <a class="link-light small" href="#!">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Core theme JS-->
+            <script src="js/scripts.js"></script>
+</body>
+</html>
